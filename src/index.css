@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   RIPPLE — Design System
+   Brand: UltraSonic Blue #482ACE | Aquamarine #36F1CD | Blue Bell #39A0ED
+   Background: white #FFFFFF | light-gray #F5F7FA | dark-navy #0D1B2A
+   All colors MUST be HSL.
+   ============================================================ */
+
+@layer base {
+  :root {
+    /* Core palette */
+    --background: 0 0% 100%;
+    --foreground: 216 50% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 216 50% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 216 50% 10%;
+
+    /* Primary = UltraSonic Blue #482ACE */
+    --primary: 252 65% 48%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary = light surface */
+    --secondary: 220 20% 97%;
+    --secondary-foreground: 216 50% 10%;
+
+    /* Aquamarine accent #36F1CD */
+    --accent: 169 85% 58%;
+    --accent-foreground: 216 50% 10%;
+
+    /* Blue Bell #39A0ED */
+    --blue-bell: 207 82% 57%;
+    --blue-bell-foreground: 0 0% 100%;
+
+    /* Surfaces */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 10% 45%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 14% 90%;
+    --input: 220 14% 90%;
+    --ring: 252 65% 48%;
+
+    --radius: 0.875rem;
+
+    /* Dark navy section bg #0D1B2A */
+    --dark-section: 210 70% 11%;
+    --dark-section-foreground: 0 0% 97%;
+
+    /* Light gray bg #F5F7FA */
+    --light-surface: 220 22% 98%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(252 65% 48%), hsl(207 82% 57%), hsl(169 85% 58%));
+    --gradient-hero: linear-gradient(160deg, hsl(252 65% 48% / 0.12) 0%, hsl(169 85% 58% / 0.08) 50%, hsl(207 82% 57% / 0.10) 100%);
+    --gradient-cta: linear-gradient(135deg, hsl(252 65% 48%), hsl(207 82% 57%));
+    --gradient-dark: linear-gradient(135deg, hsl(210 70% 11%), hsl(252 65% 25%));
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px hsl(252 65% 48% / 0.08);
+    --shadow-md: 0 8px 24px hsl(252 65% 48% / 0.14);
+    --shadow-lg: 0 16px 48px hsl(252 65% 48% / 0.18);
+    --shadow-card: 0 4px 16px hsl(220 14% 10% / 0.07);
+
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 216 50% 10%;
+    --sidebar-primary: 252 65% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 14% 96%;
+    --sidebar-accent-foreground: 216 50% 10%;
+    --sidebar-border: 220 14% 90%;
+    --sidebar-ring: 252 65% 48%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+}
+
+/* ============================================================
+   Ripple Utilities
+   ============================================================ */
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-cta {
+    background: var(--gradient-cta);
+  }
+
+  .gradient-dark {
+    background: var(--gradient-dark);
+  }
+
+  .gradient-hero-bg {
+    background: var(--gradient-hero);
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .shadow-ripple {
+    box-shadow: var(--shadow-md);
+  }
+
+  .shadow-ripple-lg {
+    box-shadow: var(--shadow-lg);
+  }
+
+  .shadow-card-ripple {
+    box-shadow: var(--shadow-card);
+  }
+
+  /* Wave divider shapes */
+  .wave-top {
+    clip-path: ellipse(75% 60% at 50% 100%);
+  }
+}
+
+/* ============================================================
+   Ripple button — click ripple effect
+   ============================================================ */
+@layer components {
+  .ripple-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: hsl(0 0% 100% / 0.2);
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform 0.4s ease-out, opacity 0.4s;
+    opacity: 0;
+  }
+
+  .ripple-btn:active::after {
+    transform: scale(3);
+    opacity: 1;
+    transition: 0s;
+  }
+}
+
+/* ============================================================
+   Hero animated ripple rings
+   ============================================================ */
+@keyframes ripple-ring {
+  0%   { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-ripple-ring {
+  animation: ripple-ring 3s ease-out infinite;
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out forwards;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 6s ease infinite;
+}
